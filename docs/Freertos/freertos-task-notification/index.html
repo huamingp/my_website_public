@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-Freertos/freertos-task-notification" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">任务通知 | Hymon存储间</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://your-docusaurus-site.example.com/docs/Freertos/freertos-task-notification"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="任务通知 | Hymon存储间"><meta data-rh="true" name="description" content="任务通知是 FreeRTOS 提供的“任务到任务（或 ISR 到任务）一对一信号通道”。"><meta data-rh="true" property="og:description" content="任务通知是 FreeRTOS 提供的“任务到任务（或 ISR 到任务）一对一信号通道”。"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://your-docusaurus-site.example.com/docs/Freertos/freertos-task-notification"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/Freertos/freertos-task-notification" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/Freertos/freertos-task-notification" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"任务通知","item":"https://your-docusaurus-site.example.com/docs/Freertos/freertos-task-notification"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Hymon存储间 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Hymon存储间 Atom Feed"><link rel="stylesheet" href="/assets/css/styles.3080772e.css">
+<script src="/assets/js/runtime~main.603cb422.js" defer="defer"></script>
+<script src="/assets/js/main.b143e29d.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/logo.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Hymon储物间</b></a><a class="navbar__item navbar__link" href="/docs/STM32/">STM32</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/Freertos/">Freertos</a><a class="navbar__item navbar__link" href="/blog">Blog</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/"><span title="目录" class="linkLabel_WmDU">目录</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/freertos-arm-basics"><span title="ARM相关基础" class="linkLabel_WmDU">ARM相关基础</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/freertos-memory-management"><span title="内存管理" class="linkLabel_WmDU">内存管理</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/freertos-task-management"><span title="任务管理" class="linkLabel_WmDU">任务管理</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/freertos-sync-mutex"><span title="同步与互斥" class="linkLabel_WmDU">同步与互斥</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/freertos-queue"><span title="队列" class="linkLabel_WmDU">队列</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/freertos-semaphore"><span title="信号量" class="linkLabel_WmDU">信号量</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/freertos-mutex"><span title="互斥量" class="linkLabel_WmDU">互斥量</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/freertos-event-group"><span title="事件组" class="linkLabel_WmDU">事件组</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/docs/Freertos/freertos-task-notification"><span title="任务通知" class="linkLabel_WmDU">任务通知</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Freertos/freertos-software-timer"><span title="软件定时器" class="linkLabel_WmDU">软件定时器</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">任务通知</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>任务通知</h1></header><p>任务通知是 FreeRTOS 提供的“任务到任务（或 ISR 到任务）一对一信号通道”。</p>
+<p>它比队列/信号量更轻量，因为通知信息直接放在目标任务的 TCB 内，不需要额外创建独立内核对象。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心概念通知值与通知状态">核心概念：通知值与通知状态<a href="#核心概念通知值与通知状态" class="hash-link" aria-label="核心概念：通知值与通知状态的直接链接" title="核心概念：通知值与通知状态的直接链接" translate="no">​</a></h2>
+<p>任务通知最关键的两个成员在目标任务 TCB 中：</p>
+<ul>
+<li class=""><code>ulNotifiedValue[]</code>：通知值（<code>uint32_t</code>）</li>
+<li class=""><code>ucNotifyState[]</code>：通知状态（<code>uint8_t</code>）</li>
+</ul>
+<blockquote>
+<p>说明：新版本支持通知数组（<code>configTASK_NOTIFICATION_ARRAY_ENTRIES</code>），默认至少为 1。多数工程只用索引 <code>0</code>。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-通知值-ulnotifiedvalue">(1) 通知值 <code>ulNotifiedValue</code><a href="#1-通知值-ulnotifiedvalue" class="hash-link" aria-label="1-通知值-ulnotifiedvalue的直接链接" title="1-通知值-ulnotifiedvalue的直接链接" translate="no">​</a></h3>
+<p>你可以把它理解为“随通知携带的 32-bit 数据槽”，常见用法有三类：</p>
+<ol>
+<li class="">
+<p>计数模式（类似轻量计数信号量）</p>
+<ul>
+<li class="">发送端每次 <code>+1</code>。</li>
+<li class="">接收端用 <code>ulTaskNotifyTake()</code> 取走计数。</li>
+</ul>
+</li>
+<li class="">
+<p>事件位模式（类似轻量事件标志）</p>
+<ul>
+<li class="">发送端按位 OR：<code>BIT0/BIT1/...</code>。</li>
+<li class="">接收端按位判断并清位。</li>
+</ul>
+</li>
+<li class="">
+<p>覆盖/写值模式（传 32-bit 数据）</p>
+<ul>
+<li class="">发送端直接写入一个值（可覆盖旧值）。</li>
+<li class="">接收端通过 <code>xTaskNotifyWait()</code> 读取。</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-通知状态-ucnotifystate">(2) 通知状态 <code>ucNotifyState</code><a href="#2-通知状态-ucnotifystate" class="hash-link" aria-label="2-通知状态-ucnotifystate的直接链接" title="2-通知状态-ucnotifystate的直接链接" translate="no">​</a></h3>
+<p>通知状态用于表达“这条通知槽当前是否有待处理通知，以及任务是否在等待通知”。常见状态值（内核宏）如下：</p>
+<ul>
+<li class=""><code>taskNOT_WAITING_NOTIFICATION</code>
+<ul>
+<li class="">当前任务未在该通知槽上阻塞等待。</li>
+</ul>
+</li>
+<li class=""><code>taskWAITING_NOTIFICATION</code>
+<ul>
+<li class="">当前任务已调用等待 API 并阻塞，等待通知到来。</li>
+</ul>
+</li>
+<li class=""><code>taskNOTIFICATION_RECEIVED</code>
+<ul>
+<li class="">已存在 pending（待处理）通知，等待任务通过接收 API 消费。</li>
+</ul>
+</li>
+</ul>
+<p>可以把它当作“通知是否已到达、是否已被任务消费”的状态机标记。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-什么是-pending待处理通知">(3) 什么是 pending（待处理）通知<a href="#3-什么是-pending待处理通知" class="hash-link" aria-label="(3) 什么是 pending（待处理）通知的直接链接" title="(3) 什么是 pending（待处理）通知的直接链接" translate="no">​</a></h3>
+<p>在本笔记里，pending（待处理）通知指的是：</p>
+<ul>
+<li class="">该通知槽的状态 <code>ucNotifyState</code> 已经是 <code>taskNOTIFICATION_RECEIVED</code></li>
+<li class="">但接收任务还没有通过接收 API 完成消费（如 <code>ulTaskNotifyTake</code> / <code>xTaskNotifyWait</code>）</li>
+</ul>
+<p>也就是说：通知已经“到达并挂起”，但还没被任务“取走处理”。</p>
+<p>如何判断是否为 pending：</p>
+<ul>
+<li class=""><code>taskNOTIFICATION_RECEIVED</code>：是 pending</li>
+<li class=""><code>taskWAITING_NOTIFICATION</code>：不是 pending（这是“正在等通知”）</li>
+<li class=""><code>taskNOT_WAITING_NOTIFICATION</code>：不是 pending（当前无待处理通知）</li>
+</ul>
+<p>补充边界场景（容易混淆）：</p>
+<ol>
+<li class="">
+<p>当发送动作是 <code>eSetValueWithoutOverwrite</code> 时：</p>
+<ul>
+<li class="">若目标当前没有 pending，则写入成功并变为 pending。</li>
+<li class="">若目标当前已经 pending，本次发送返回 <code>pdFAIL</code>，不会产生新的 pending 条目。</li>
+</ul>
+</li>
+<li class="">
+<p>pending 不是“队列里有多条消息”：</p>
+<ul>
+<li class="">每个通知槽只有一个通知值和一个通知状态。</li>
+<li class="">新通知可能累积到同一个值（如 <code>eIncrement</code>/<code>eSetBits</code>），也可能覆盖旧值（<code>eSetValueWithOverwrite</code>）。</li>
+</ul>
+</li>
+<li class="">
+<p>pending 何时结束：</p>
+<ul>
+<li class="">接收任务成功调用接收 API 并完成消费后，状态回到非 pending（通常为 <code>taskNOT_WAITING_NOTIFICATION</code>）。</li>
+</ul>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="与队列信号量事件组对比详细">与队列、信号量、事件组对比（详细）<a href="#与队列信号量事件组对比详细" class="hash-link" aria-label="与队列、信号量、事件组对比（详细）的直接链接" title="与队列、信号量、事件组对比（详细）的直接链接" translate="no">​</a></h2>
+<table><thead><tr><th>维度</th><th>任务通知</th><th>队列</th><th>信号量（Binary/Counting）</th><th>事件组</th></tr></thead><tbody><tr><td>通信关系</td><td>一对一（固定目标任务）</td><td>多对多</td><td>多对多（同步语义）</td><td>多任务等待同一位集合</td></tr><tr><td>是否要单独创建对象</td><td>不需要（在任务 TCB 内）</td><td>需要 <code>xQueueCreate</code></td><td>需要 <code>xSemaphoreCreate...</code></td><td>需要 <code>xEventGroupCreate</code></td></tr><tr><td>数据承载能力</td><td>仅 32-bit（每槽一个值）</td><td>任意数据项（按 item size 拷贝）</td><td>不承载业务数据（仅计数/令牌）</td><td>位标志（多 bit 条件）</td></tr><tr><td>ISR 支持</td><td>完整支持 <code>FromISR</code></td><td>完整支持 <code>FromISR</code></td><td>完整支持 <code>FromISR</code>（互斥量除外）</td><td>支持 <code>SetBitsFromISR</code>（常为延后处理）</td></tr><tr><td>内存开销</td><td>最小</td><td>相对较高（与长度和项大小有关）</td><td>中等</td><td>中等</td></tr><tr><td>运行开销</td><td>最低一档</td><td>中等</td><td>低到中等</td><td>中等</td></tr><tr><td>是否适合广播</td><td>不适合（天然一对一）</td><td>通过多队列实现广播</td><td>不适合广播</td><td>适合“多任务等同一事件位”</td></tr><tr><td>是否适合传结构体</td><td>不适合</td><td>最适合</td><td>不适合</td><td>不适合</td></tr><tr><td>典型用途</td><td>ISR 快速唤醒单任务、轻量事件通知、32-bit 快速传值</td><td>生产者-消费者数据流</td><td>资源计数/事件同步</td><td>多条件联合等待（AND/OR）</td></tr><tr><td>主要限制</td><td>仅面向指定任务；值宽固定 32 位</td><td>拷贝开销与容量管理成本</td><td>不传业务数据</td><td>不传业务数据，且位数有限</td></tr></tbody></table>
+<p>选型建议：</p>
+<ul>
+<li class="">目标是“唤醒某一个任务，且只需 32-bit 信息”：优先任务通知。</li>
+<li class="">目标是“传结构化数据”：优先队列。</li>
+<li class="">目标是“资源计数/令牌管理”：优先计数信号量。</li>
+<li class="">目标是“多个条件位组合等待”：优先事件组。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="通知状态转换关系结合你提的-3-种场景">通知状态转换关系（结合你提的 3 种场景）<a href="#通知状态转换关系结合你提的-3-种场景" class="hash-link" aria-label="通知状态转换关系（结合你提的 3 种场景）的直接链接" title="通知状态转换关系（结合你提的 3 种场景）的直接链接" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="场景-aa-通知-b但-b-此时不关心未等待">场景 A：A 通知 B，但 B 此时不关心（未等待）<a href="#场景-aa-通知-b但-b-此时不关心未等待" class="hash-link" aria-label="场景 A：A 通知 B，但 B 此时不关心（未等待）的直接链接" title="场景 A：A 通知 B，但 B 此时不关心（未等待）的直接链接" translate="no">​</a></h3>
+<ol>
+<li class="">B 当前状态：<code>taskNOT_WAITING_NOTIFICATION</code></li>
+<li class="">A 发送通知后：<!-- -->
+<ul>
+<li class="">B 的 <code>ulNotifiedValue</code> 按指定动作更新（加一/置位/覆盖）</li>
+<li class="">B 的 <code>ucNotifyState</code> 置为 <code>taskNOTIFICATION_RECEIVED</code></li>
+</ul>
+</li>
+<li class="">B 不会立刻因“等待解除”而切换（因为它本来没阻塞在通知上）</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="场景-ba-通知-bb-正在等待">场景 B：A 通知 B，B 正在等待<a href="#场景-ba-通知-bb-正在等待" class="hash-link" aria-label="场景 B：A 通知 B，B 正在等待的直接链接" title="场景 B：A 通知 B，B 正在等待的直接链接" translate="no">​</a></h3>
+<ol>
+<li class="">B 调用等待 API 后进入阻塞：<code>taskWAITING_NOTIFICATION</code></li>
+<li class="">A 发送通知：<!-- -->
+<ul>
+<li class="">更新 <code>ulNotifiedValue</code></li>
+<li class="">状态置为 <code>taskNOTIFICATION_RECEIVED</code></li>
+<li class="">B 从 Blocked 转到 Ready</li>
+</ul>
+</li>
+<li class="">若 B 优先级更高，可能马上发生上下文切换</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="场景-ca-先通知b-之后才想看之前有没有通知">场景 C：A 先通知，B 之后才想“看之前有没有通知”<a href="#场景-ca-先通知b-之后才想看之前有没有通知" class="hash-link" aria-label="场景 C：A 先通知，B 之后才想“看之前有没有通知”的直接链接" title="场景 C：A 先通知，B 之后才想“看之前有没有通知”的直接链接" translate="no">​</a></h3>
+<ol>
+<li class="">A 先发通知时，B 未等待，状态会变为 <code>taskNOTIFICATION_RECEIVED</code></li>
+<li class="">B 后续可消费这条 pending 通知，但应按发送动作选择接收 API：<!-- -->
+<ul>
+<li class="">计数语义（<code>xTaskNotifyGive</code> / <code>eIncrement</code>）优先用 <code>ulTaskNotifyTake()</code></li>
+<li class="">位标志或写值语义（<code>eSetBits</code> / <code>eSetValue...</code>）优先用 <code>xTaskNotifyWait()</code></li>
+</ul>
+</li>
+<li class="">消费后，状态通常回到 <code>taskNOT_WAITING_NOTIFICATION</code></li>
+</ol>
+<blockquote>
+<p>结论：任务通知在接收任务未阻塞时，通知状态仍可被置为已收到，不会“立刻失效”。
+但任务通知不是队列：每个通知槽只有一个通知值与一个 pending 状态。
+是否会覆盖、累积或发送失败，取决于发送动作（<code>eAction</code>）与接收侧清除策略。</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="内部机制结合源码执行链路">内部机制（结合源码执行链路）<a href="#内部机制结合源码执行链路" class="hash-link" aria-label="内部机制（结合源码执行链路）的直接链接" title="内部机制（结合源码执行链路）的直接链接" translate="no">​</a></h2>
+<p>以下用 FreeRTOS 内核常见实现路径说明（<code>tasks.c</code>，不同版本函数名细节可能有差异，但机制一致）。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-发送主路径xtaskgenericnotify--xtaskgenericnotifyfromisr">(1) 发送主路径：<code>xTaskGenericNotify()</code> / <code>xTaskGenericNotifyFromISR()</code><a href="#1-发送主路径xtaskgenericnotify--xtaskgenericnotifyfromisr" class="hash-link" aria-label="1-发送主路径xtaskgenericnotify--xtaskgenericnotifyfromisr的直接链接" title="1-发送主路径xtaskgenericnotify--xtaskgenericnotifyfromisr的直接链接" translate="no">​</a></h3>
+<p>发送通知时内核核心步骤：</p>
+<ol>
+<li class="">定位目标任务 TCB 与通知索引（默认索引 0）。</li>
+<li class="">先保存旧通知值（若调用方需要返回旧值）。</li>
+<li class="">按 <code>eAction</code> 更新 <code>ulNotifiedValue</code>：<!-- -->
+<ul>
+<li class=""><code>eNoAction</code>：只改状态，不改值</li>
+<li class=""><code>eSetBits</code>：<code>value |= ulValue</code></li>
+<li class=""><code>eIncrement</code>：<code>value++</code></li>
+<li class=""><code>eSetValueWithOverwrite</code>：<code>value = ulValue</code>（覆盖）</li>
+<li class=""><code>eSetValueWithoutOverwrite</code>：若已有 pending 通知则失败，否则写入</li>
+</ul>
+</li>
+<li class="">将 <code>ucNotifyState</code> 置为 <code>taskNOTIFICATION_RECEIVED</code>。</li>
+<li class="">若目标任务原本在该通知上阻塞（<code>taskWAITING_NOTIFICATION</code>），则将其从阻塞列表移到就绪列表。</li>
+<li class="">在 ISR 版本中通过 <code>pxHigherPriorityTaskWoken</code> 告知是否需要在中断退出后触发调度。</li>
+</ol>
+<p>这条链路解释了“通知值更新 + 状态更新 + 可能唤醒任务”是一次原子语义流程。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-接收主路径一ultasknotifytake简化版">(2) 接收主路径一：<code>ulTaskNotifyTake()</code>（简化版）<a href="#2-接收主路径一ultasknotifytake简化版" class="hash-link" aria-label="2-接收主路径一ultasknotifytake简化版的直接链接" title="2-接收主路径一ultasknotifytake简化版的直接链接" translate="no">​</a></h3>
+<p>典型行为：</p>
+<ol>
+<li class="">若通知值为 0 且允许等待：<!-- -->
+<ul>
+<li class="">当前任务状态置 <code>taskWAITING_NOTIFICATION</code></li>
+<li class="">挂入延时/等待链表并阻塞</li>
+</ul>
+</li>
+<li class="">被通知唤醒后读取当前 <code>ulNotifiedValue</code></li>
+<li class="">根据 <code>xClearCountOnExit</code>：<!-- -->
+<ul>
+<li class=""><code>pdTRUE</code>：退出时清零（常用于二值语义）</li>
+<li class=""><code>pdFALSE</code>：退出时减一（常用于计数语义）</li>
+</ul>
+</li>
+<li class=""><code>ucNotifyState</code> 回到 <code>taskNOT_WAITING_NOTIFICATION</code></li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-接收主路径二xtasknotifywait专业版">(3) 接收主路径二：<code>xTaskNotifyWait()</code>（专业版）<a href="#3-接收主路径二xtasknotifywait专业版" class="hash-link" aria-label="3-接收主路径二xtasknotifywait专业版的直接链接" title="3-接收主路径二xtasknotifywait专业版的直接链接" translate="no">​</a></h3>
+<p>典型行为：</p>
+<ol>
+<li class="">进入等待前可先清位：<code>ulBitsToClearOnEntry</code></li>
+<li class="">若无 pending 通知且允许等待：置 <code>taskWAITING_NOTIFICATION</code> 并阻塞</li>
+<li class="">收到通知后返回，输出当前通知值到 <code>pulNotificationValue</code></li>
+<li class="">退出前再按 <code>ulBitsToClearOnExit</code> 清位</li>
+<li class="">最终将通知状态恢复为非等待态</li>
+</ol>
+<p>它适合“位标志 + 可控清位”的高级场景。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-为什么任务通知更轻量">(4) 为什么任务通知更轻量<a href="#4-为什么任务通知更轻量" class="hash-link" aria-label="(4) 为什么任务通知更轻量的直接链接" title="(4) 为什么任务通知更轻量的直接链接" translate="no">​</a></h3>
+<p>因为它不需要单独分配 Queue/Semaphore/EventGroup 控制块，直接使用目标任务 TCB 中已有字段：</p>
+<ul>
+<li class="">更少的 RAM 占用</li>
+<li class="">更短的内核路径</li>
+<li class="">ISR 到任务唤醒延迟更低（常见场景下）</li>
+</ul>
+<p>代价是：</p>
+<ul>
+<li class="">天然一对一，不适合多消费者广播</li>
+<li class="">数据宽度固定 32-bit</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="api-详解参数类型含义返回值">API 详解（参数类型、含义、返回值）<a href="#api-详解参数类型含义返回值" class="hash-link" aria-label="API 详解（参数类型、含义、返回值）的直接链接" title="API 详解（参数类型、含义、返回值）的直接链接" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="发送通知简化版">发送通知：简化版<a href="#发送通知简化版" class="hash-link" aria-label="发送通知：简化版的直接链接" title="发送通知：简化版的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><code>xTaskNotifyGive</code></li>
+</ol>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">BaseType_t </span><span class="token function" style="color:#d73a49">xTaskNotifyGive</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"> TaskHandle_t xTaskToNotify </span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
+<ul>
+<li class="">参数<!-- -->
+<ul>
+<li class=""><code>xTaskToNotify</code>（<code>TaskHandle_t</code>）：目标任务句柄</li>
+</ul>
+</li>
+<li class="">本质<!-- -->
+<ul>
+<li class="">等价于 <code>xTaskNotify(xTaskToNotify, 0, eIncrement)</code> 的便捷封装</li>
+</ul>
+</li>
+<li class="">返回值（<code>BaseType_t</code>）<!-- -->
+<ul>
+<li class="">通常为 <code>pdPASS</code></li>
+</ul>
+</li>
+<li class="">语义<!-- -->
+<ul>
+<li class="">目标通知值加一，常与 <code>ulTaskNotifyTake()</code> 配对</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li class=""><code>vTaskNotifyGiveFromISR</code></li>
+</ol>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">void</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">vTaskNotifyGiveFromISR</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"> TaskHandle_t xTaskToNotify</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                           BaseType_t </span><span class="token operator" style="color:#393A34">*</span><span class="token plain">pxHigherPriorityTaskWoken </span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
+<ul>
+<li class="">参数<!-- -->
+<ul>
+<li class=""><code>xTaskToNotify</code>（<code>TaskHandle_t</code>）：目标任务句柄</li>
+<li class=""><code>pxHigherPriorityTaskWoken</code>（<code>BaseType_t *</code>）：若唤醒到更高优先级任务，内核会写 <code>pdTRUE</code></li>
+</ul>
+</li>
+<li class="">返回值<!-- -->
+<ul>
+<li class=""><code>void</code></li>
+</ul>
+</li>
+<li class="">使用要点<!-- -->
+<ul>
+<li class="">ISR 退出前调用 <code>portYIELD_FROM_ISR(*pxHigherPriorityTaskWoken)</code></li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="发送通知专业版">发送通知：专业版<a href="#发送通知专业版" class="hash-link" aria-label="发送通知：专业版的直接链接" title="发送通知：专业版的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><code>xTaskNotify</code></li>
+</ol>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">BaseType_t </span><span class="token function" style="color:#d73a49">xTaskNotify</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"> TaskHandle_t xTaskToNotify</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                    </span><span class="token class-name">uint32_t</span><span class="token plain"> ulValue</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                    eNotifyAction eAction </span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
+<ul>
+<li class="">
+<p>参数</p>
+<ul>
+<li class=""><code>xTaskToNotify</code>（<code>TaskHandle_t</code>）：目标任务</li>
+<li class=""><code>ulValue</code>（<code>uint32_t</code>）：参与更新的值</li>
+<li class=""><code>eAction</code>（<code>eNotifyAction</code>）：更新动作<!-- -->
+<ul>
+<li class=""><code>eNoAction</code></li>
+<li class=""><code>eSetBits</code></li>
+<li class=""><code>eIncrement</code></li>
+<li class=""><code>eSetValueWithOverwrite</code></li>
+<li class=""><code>eSetValueWithoutOverwrite</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="">
+<p>返回值（<code>BaseType_t</code>）</p>
+<ul>
+<li class=""><code>pdPASS</code>：成功</li>
+<li class=""><code>pdFAIL</code>：常见于 <code>eSetValueWithoutOverwrite</code> 且目标已有 pending 通知</li>
+</ul>
+</li>
+<li class="">
+<p><code>eNotifyAction</code> 各可选值的操作意义（重点）</p>
+</li>
+</ul>
+<table><thead><tr><th><code>eAction</code></th><th>对 <code>ulNotifiedValue</code> 的操作</th><th>典型语义</th><th>什么时候用</th></tr></thead><tbody><tr><td><code>eNoAction</code></td><td>不改通知值，只把状态置为已收到</td><td>纯“敲门通知”</td><td>只关心“有事件来了”，不需要携带数值</td></tr><tr><td><code>eSetBits</code></td><td>`ulNotifiedValue</td><td>= ulValue`</td><td>事件位累积（位标志）</td></tr><tr><td><code>eIncrement</code></td><td><code>ulNotifiedValue++</code></td><td>计数累计</td><td>ISR/任务多次触发，接收方按次数消费</td></tr><tr><td><code>eSetValueWithOverwrite</code></td><td><code>ulNotifiedValue = ulValue</code>（无条件覆盖）</td><td>最新值覆盖</td><td>只关心最新状态/最新采样值</td></tr><tr><td><code>eSetValueWithoutOverwrite</code></td><td>若当前无 pending 通知才写入；否则失败</td><td>防覆盖写入</td><td>不能接受新值覆盖旧值，要求发送端处理失败分支</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="为什么-esetbits-是按位或or">为什么 <code>eSetBits</code> 是按位或（OR）<a href="#为什么-esetbits-是按位或or" class="hash-link" aria-label="为什么-esetbits-是按位或or的直接链接" title="为什么-esetbits-是按位或or的直接链接" translate="no">​</a></h3>
+<p><code>eSetBits</code> 的目标不是“替换旧值”，而是“把新事件位并入已有事件集合”。</p>
+<ul>
+<li class="">位或规则：某一位只要有一次被置 1，就保持为 1，直到接收方显式清位。</li>
+<li class="">这样可以实现“多事件累积不互相覆盖”。</li>
+</ul>
+<p>示例：</p>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token comment" style="color:#999988;font-style:italic">// 约定：BIT0=DMA完成，BIT1=UART完成</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token comment" style="color:#999988;font-style:italic">// 初始通知值为 0b0000</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token comment" style="color:#999988;font-style:italic">// 先来 DMA 完成事件</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token function" style="color:#d73a49">xTaskNotify</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">task</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> eSetBits</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain">   </span><span class="token comment" style="color:#999988;font-style:italic">// 值变为 0b0001</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token comment" style="color:#999988;font-style:italic">// 再来 UART 完成事件</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token function" style="color:#d73a49">xTaskNotify</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">task</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> eSetBits</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain">   </span><span class="token comment" style="color:#999988;font-style:italic">// 值变为 0b0011</span><br></span></code></pre></div></div>
+<p>如果这里不用 OR，而是直接赋值覆盖，那么后一个事件会把前一个事件冲掉，接收任务就无法知道“两个事件都发生过”。</p>
+<p>工程意义：</p>
+<ol>
+<li class="">把 32-bit 通知值当作“轻量事件组”使用。</li>
+<li class="">多个 ISR/任务可向同一目标任务汇报不同事件位。也就是可以用“某一位”表示“某个事件已经发生”。<!-- -->
+<ul>
+<li class="">例子：<code>BIT0</code> 表示 DMA 完成，<code>BIT1</code> 表示 UART 接收完成。</li>
+<li class="">DMA 中断到来时：<code>xTaskNotifyFromISR(xTask, (1u &lt;&lt; 0), eSetBits, &amp;xHigherPriorityTaskWoken);</code></li>
+<li class="">UART 中断到来时：<code>xTaskNotifyFromISR(xTask, (1u &lt;&lt; 1), eSetBits, &amp;xHigherPriorityTaskWoken);</code></li>
+<li class="">这样通知值里哪一位是 1，就表示对应事件“至少发生过一次且尚未被清位”。</li>
+</ul>
+</li>
+<li class="">接收任务可一次性读取并按位分发处理，然后按需清位。也就是读取通知值后，按位判断“哪个事件发生了”，执行对应处理。<!-- -->
+<ul>
+<li class="">例子：</li>
+</ul>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token class-name">uint32_t</span><span class="token plain"> ulEvents </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token function" style="color:#d73a49">xTaskNotifyWait</span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">|</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&amp;</span><span class="token plain">ulEvents</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> portMAX_DELAY</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">==</span><span class="token plain"> pdTRUE</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">ulEvents </span><span class="token operator" style="color:#393A34">&amp;</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">!=</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0u</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">HandleDmaDone</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">ulEvents </span><span class="token operator" style="color:#393A34">&amp;</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">!=</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0u</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">HandleUartRxDone</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="esetbits-常见误区与清位建议"><code>eSetBits</code> 常见误区与清位建议<a href="#esetbits-常见误区与清位建议" class="hash-link" aria-label="esetbits-常见误区与清位建议的直接链接" title="esetbits-常见误区与清位建议的直接链接" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p>误区：把 <code>eSetBits</code> 当“覆盖写”</p>
+<ul>
+<li class="">错误理解：新事件来了就替换旧值。</li>
+<li class="">正确行为：<code>eSetBits</code> 是位累积（OR），旧位不会被自动清除。</li>
+</ul>
+</li>
+<li class="">
+<p>误区：只置位不清位</p>
+<ul>
+<li class="">结果：同一事件位会长期为 1，后续逻辑可能反复误判“新事件又来了”。</li>
+<li class="">建议：接收端在处理完成后按位清除（例如用 <code>xTaskNotifyWait</code> 的 <code>ulBitsToClearOnExit</code>）。</li>
+</ul>
+</li>
+<li class="">
+<p>推荐模板（位事件模式）</p>
+</li>
+</ol>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token comment" style="color:#999988;font-style:italic">// BIT0: DMA done, BIT1: UART done</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token class-name">uint32_t</span><span class="token plain"> ulEvents </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token function" style="color:#d73a49">xTaskNotifyWait</span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">|</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&amp;</span><span class="token plain">ulEvents</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> portMAX_DELAY</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">==</span><span class="token plain"> pdTRUE</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">ulEvents </span><span class="token operator" style="color:#393A34">&amp;</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">!=</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0u</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token function" style="color:#d73a49">HandleDmaDone</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   </span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   </span><span class="token keyword" style="color:#00009f">if</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">ulEvents </span><span class="token operator" style="color:#393A34">&amp;</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token number" style="color:#36acaa">1u</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">&lt;&lt;</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">!=</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">0u</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token function" style="color:#d73a49">HandleUartDone</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   </span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+<blockquote>
+<p>实战建议：事件位较多时，统一定义事件位宏与清位策略（入口清位/出口清位），避免位状态管理混乱。</p>
+</blockquote>
+<ol start="2">
+<li class=""><code>xTaskNotifyFromISR</code></li>
+</ol>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">BaseType_t </span><span class="token function" style="color:#d73a49">xTaskNotifyFromISR</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"> TaskHandle_t xTaskToNotify</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                              </span><span class="token class-name">uint32_t</span><span class="token plain"> ulValue</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                              eNotifyAction eAction</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                              BaseType_t </span><span class="token operator" style="color:#393A34">*</span><span class="token plain">pxHigherPriorityTaskWoken </span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
+<ul>
+<li class="">参数<!-- -->
+<ul>
+<li class="">前 3 个与任务态一致</li>
+<li class=""><code>pxHigherPriorityTaskWoken</code>（<code>BaseType_t *</code>）：用于 ISR 退出调度请求</li>
+</ul>
+</li>
+<li class="">返回值（<code>BaseType_t</code>）<!-- -->
+<ul>
+<li class="">同任务态：<code>pdPASS</code> / <code>pdFAIL</code></li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="接收通知简化版">接收通知：简化版<a href="#接收通知简化版" class="hash-link" aria-label="接收通知：简化版的直接链接" title="接收通知：简化版的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><code>ulTaskNotifyTake</code></li>
+</ol>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token class-name">uint32_t</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">ulTaskNotifyTake</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"> BaseType_t xClearCountOnExit</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                        TickType_t xTicksToWait </span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
+<ul>
+<li class="">参数<!-- -->
+<ul>
+<li class=""><code>xClearCountOnExit</code>（<code>BaseType_t</code>）<!-- -->
+<ul>
+<li class=""><code>pdTRUE</code>：取到通知后把通知值清零</li>
+<li class=""><code>pdFALSE</code>：取到通知后通知值减一</li>
+</ul>
+</li>
+<li class=""><code>xTicksToWait</code>（<code>TickType_t</code>）：等待超时<!-- -->
+<ul>
+<li class=""><code>0</code>：不等待</li>
+<li class=""><code>portMAX_DELAY</code>：可长期等待（受配置影响）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="">返回值（<code>uint32_t</code>）<!-- -->
+<ul>
+<li class="">返回取到前的通知计数值</li>
+<li class="">返回 <code>0</code> 通常表示超时未收到</li>
+</ul>
+</li>
+<li class="">典型配对<!-- -->
+<ul>
+<li class="">与 <code>xTaskNotifyGive</code> / <code>vTaskNotifyGiveFromISR</code> 搭配构成轻量“计数信号量”模型</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="接收通知专业版">接收通知：专业版<a href="#接收通知专业版" class="hash-link" aria-label="接收通知：专业版的直接链接" title="接收通知：专业版的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><code>xTaskNotifyWait</code></li>
+</ol>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">BaseType_t </span><span class="token function" style="color:#d73a49">xTaskNotifyWait</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"> </span><span class="token class-name">uint32_t</span><span class="token plain"> ulBitsToClearOnEntry</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                          </span><span class="token class-name">uint32_t</span><span class="token plain"> ulBitsToClearOnExit</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                          </span><span class="token class-name">uint32_t</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain">pulNotificationValue</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                          TickType_t xTicksToWait </span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
+<ul>
+<li class="">参数<!-- -->
+<ul>
+<li class=""><code>ulBitsToClearOnEntry</code>（<code>uint32_t</code>）：进入等待前先清除的位</li>
+<li class=""><code>ulBitsToClearOnExit</code>（<code>uint32_t</code>）：成功收到通知后退出前清除的位</li>
+<li class=""><code>pulNotificationValue</code>（<code>uint32_t *</code>）：输出通知值快照（可为 <code>NULL</code>）</li>
+<li class=""><code>xTicksToWait</code>（<code>TickType_t</code>）：等待时长</li>
+</ul>
+</li>
+<li class="">返回值（<code>BaseType_t</code>）<!-- -->
+<ul>
+<li class=""><code>pdTRUE</code>：收到通知</li>
+<li class=""><code>pdFALSE</code>：超时未收到</li>
+</ul>
+</li>
+<li class="">典型用途<!-- -->
+<ul>
+<li class="">多 bit 事件协同、可控清位策略、读取并解析 32-bit 载荷</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="工程实践建议">工程实践建议<a href="#工程实践建议" class="hash-link" aria-label="工程实践建议的直接链接" title="工程实践建议的直接链接" translate="no">​</a></h2>
+<ol>
+<li class="">ISR 快速唤醒单任务，优先“任务通知 + <code>FromISR</code> API”。</li>
+<li class="">需要保留历史多条数据时，不要用任务通知硬凑，直接用队列。</li>
+<li class="">使用 <code>eSetValueWithoutOverwrite</code> 时，必须处理 <code>pdFAIL</code> 分支，避免静默丢通知。</li>
+<li class="">若任务长期不消费通知，<code>taskNOTIFICATION_RECEIVED</code> 会持续存在，需明确清除策略。</li>
+<li class="">对于事件位模式，统一定义 <code>BIT</code> 宏并规范清位时机，避免“位粘连”导致误判。</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/Freertos/任务通知.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/Freertos/freertos-event-group"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">事件组</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/Freertos/freertos-software-timer"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">软件定时器</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#核心概念通知值与通知状态" class="table-of-contents__link toc-highlight">核心概念：通知值与通知状态</a><ul><li><a href="#1-通知值-ulnotifiedvalue" class="table-of-contents__link toc-highlight">(1) 通知值 <code>ulNotifiedValue</code></a></li><li><a href="#2-通知状态-ucnotifystate" class="table-of-contents__link toc-highlight">(2) 通知状态 <code>ucNotifyState</code></a></li><li><a href="#3-什么是-pending待处理通知" class="table-of-contents__link toc-highlight">(3) 什么是 pending（待处理）通知</a></li></ul></li><li><a href="#与队列信号量事件组对比详细" class="table-of-contents__link toc-highlight">与队列、信号量、事件组对比（详细）</a></li><li><a href="#通知状态转换关系结合你提的-3-种场景" class="table-of-contents__link toc-highlight">通知状态转换关系（结合你提的 3 种场景）</a><ul><li><a href="#场景-aa-通知-b但-b-此时不关心未等待" class="table-of-contents__link toc-highlight">场景 A：A 通知 B，但 B 此时不关心（未等待）</a></li><li><a href="#场景-ba-通知-bb-正在等待" class="table-of-contents__link toc-highlight">场景 B：A 通知 B，B 正在等待</a></li><li><a href="#场景-ca-先通知b-之后才想看之前有没有通知" class="table-of-contents__link toc-highlight">场景 C：A 先通知，B 之后才想“看之前有没有通知”</a></li></ul></li><li><a href="#内部机制结合源码执行链路" class="table-of-contents__link toc-highlight">内部机制（结合源码执行链路）</a><ul><li><a href="#1-发送主路径xtaskgenericnotify--xtaskgenericnotifyfromisr" class="table-of-contents__link toc-highlight">(1) 发送主路径：<code>xTaskGenericNotify()</code> / <code>xTaskGenericNotifyFromISR()</code></a></li><li><a href="#2-接收主路径一ultasknotifytake简化版" class="table-of-contents__link toc-highlight">(2) 接收主路径一：<code>ulTaskNotifyTake()</code>（简化版）</a></li><li><a href="#3-接收主路径二xtasknotifywait专业版" class="table-of-contents__link toc-highlight">(3) 接收主路径二：<code>xTaskNotifyWait()</code>（专业版）</a></li><li><a href="#4-为什么任务通知更轻量" class="table-of-contents__link toc-highlight">(4) 为什么任务通知更轻量</a></li></ul></li><li><a href="#api-详解参数类型含义返回值" class="table-of-contents__link toc-highlight">API 详解（参数类型、含义、返回值）</a><ul><li><a href="#发送通知简化版" class="table-of-contents__link toc-highlight">发送通知：简化版</a></li><li><a href="#发送通知专业版" class="table-of-contents__link toc-highlight">发送通知：专业版</a></li><li><a href="#为什么-esetbits-是按位或or" class="table-of-contents__link toc-highlight">为什么 <code>eSetBits</code> 是按位或（OR）</a></li><li><a href="#esetbits-常见误区与清位建议" class="table-of-contents__link toc-highlight"><code>eSetBits</code> 常见误区与清位建议</a></li><li><a href="#接收通知简化版" class="table-of-contents__link toc-highlight">接收通知：简化版</a></li><li><a href="#接收通知专业版" class="table-of-contents__link toc-highlight">接收通知：专业版</a></li></ul></li><li><a href="#工程实践建议" class="table-of-contents__link toc-highlight">工程实践建议</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Hymon. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
