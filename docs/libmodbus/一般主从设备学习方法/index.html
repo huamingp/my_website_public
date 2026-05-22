@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-libmodbus/一般主从设备学习方法" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">一般主从设备学习方法 | Hymon存储间</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://your-docusaurus-site.example.com/docs/libmodbus/一般主从设备学习方法"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="一般主从设备学习方法 | Hymon存储间"><meta data-rh="true" name="description" content="一、通用主从通信框架（协议无关）"><meta data-rh="true" property="og:description" content="一、通用主从通信框架（协议无关）"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://your-docusaurus-site.example.com/docs/libmodbus/一般主从设备学习方法"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/libmodbus/一般主从设备学习方法" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/libmodbus/一般主从设备学习方法" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"一般主从设备学习方法","item":"https://your-docusaurus-site.example.com/docs/libmodbus/一般主从设备学习方法"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Hymon存储间 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Hymon存储间 Atom Feed"><link rel="stylesheet" href="/assets/css/styles.3080772e.css">
+<script src="/assets/js/runtime~main.28e88ccf.js" defer="defer"></script>
+<script src="/assets/js/main.6620be01.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/logo.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Hymon储物间</b></a><a class="navbar__item navbar__link" href="/docs/STM32/">STM32</a><a class="navbar__item navbar__link" href="/docs/Freertos/">Freertos</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/libmodbus/demo/Middlewares/Third_Party/FreeRTOS/Source/">libmodbus</a><a class="navbar__item navbar__link" href="/blog">Blog</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/libmodbus/demo/Middlewares/Third_Party/FreeRTOS/Source/"><span title="demo" class="categoryLinkLabel_W154">demo</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/libmodbus/libmodbus代码分析_deep"><span title="libmodbus 代码框架深度分析" class="linkLabel_WmDU">libmodbus 代码框架深度分析</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/libmodbus/libmodbus移植分析"><span title="libmodbus STM32+FreeRTOS 移植参考分析" class="linkLabel_WmDU">libmodbus STM32+FreeRTOS 移植参考分析</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/libmodbus/src/modbus-private.h"><span title="src" class="categoryLinkLabel_W154">src</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/docs/libmodbus/一般主从设备学习方法"><span title="一般主从设备学习方法" class="linkLabel_WmDU">一般主从设备学习方法</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">一般主从设备学习方法</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>一般主从设备学习方法</h1></header><h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="一通用主从通信框架协议无关">一、通用主从通信框架（协议无关）<a href="#一通用主从通信框架协议无关" class="hash-link" aria-label="一、通用主从通信框架（协议无关）的直接链接" title="一、通用主从通信框架（协议无关）的直接链接" translate="no">​</a></h2>
+<p>在任何主从式通信系统中，一次典型的事务都遵循以下过程：</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-总体角色与交互时序">1. 总体角色与交互时序<a href="#1-总体角色与交互时序" class="hash-link" aria-label="1. 总体角色与交互时序的直接链接" title="1. 总体角色与交互时序的直接链接" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>主机（Master）</strong>：主动发起所有通信，发完一个请求后立即转为接收，等待应答。</li>
+<li class=""><strong>从机（Slave）</strong>：永远处于被动监听状态，收到完整请求后才执行动作并返回应答。</li>
+<li class="">一次事务 = <strong>主机请求 → 从机应答</strong>（或超时/异常）。下一个事务必须等当前事务结束。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-主机行为框架">2. 主机行为框架<a href="#2-主机行为框架" class="hash-link" aria-label="2. 主机行为框架的直接链接" title="2. 主机行为框架的直接链接" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>明确通信意图</strong>：确定目标从机、操作类型（读/写）、操作对象（地址）、数据或长度。</li>
+<li class=""><strong>协议编码</strong>：按照协议规则，将意图打包成字节流（含地址、命令、数据、校验）。</li>
+<li class=""><strong>发送</strong>：满足总线空闲条件后，将帧完整发出，并控制字节间时序。</li>
+<li class=""><strong>等待应答</strong>：启动超时定时器，等待从机返回数据。</li>
+<li class=""><strong>接收与验证</strong>：收到应答帧后，校验完整性，解析数据，完成事务。超时或校验错则报错/重试。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-从机行为框架被动接收处理管道">3. 从机行为框架（被动接收处理管道）<a href="#3-从机行为框架被动接收处理管道" class="hash-link" aria-label="3. 从机行为框架（被动接收处理管道）的直接链接" title="3. 从机行为框架（被动接收处理管道）的直接链接" translate="no">​</a></h3>
+<p>这是一个固定的处理流水线：</p>
+<ol>
+<li class=""><strong>帧同步（界定起始）</strong>：从空闲中识别一个新帧的开始。</li>
+<li class=""><strong>帧接收与定界</strong>：逐字节存入缓冲区，同时判别帧是否完整结束，过程中任何字节间超时都视为断帧丢弃。</li>
+<li class=""><strong>完整性校验</strong>：对帧内校验域进行校验（如 CRC），错误则丢弃，不响应。</li>
+<li class=""><strong>寻址过滤</strong>：检查帧内地址是否匹配本机地址（或广播），不匹配则丢弃。</li>
+<li class=""><strong>命令解析与合法性检查</strong>：解析功能码、数据域长度，判断命令是否支持、参数是否合法。</li>
+<li class=""><strong>执行操作</strong>：根据命令读写内部数据对象。</li>
+<li class=""><strong>构造应答</strong>：<!-- -->
+<ul>
+<li class="">正常：按协议格式打包返回的数据或回显确认。</li>
+<li class="">异常：返回包含错误码的异常应答。</li>
+</ul>
+</li>
+<li class=""><strong>发送应答</strong>：满足总线空闲条件后，将应答帧完整发出。</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="二将-modbus-rtu-填入上述框架">二、将 Modbus RTU 填入上述框架<a href="#二将-modbus-rtu-填入上述框架" class="hash-link" aria-label="二、将 Modbus RTU 填入上述框架的直接链接" title="二、将 Modbus RTU 填入上述框架的直接链接" translate="no">​</a></h2>
+<p>现在我们把这个框架具体化为 Modbus RTU 的行为，您会看到协议细节是如何落地的。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-主机行为modbus-rtu-的实例化">1. 主机行为：Modbus RTU 的实例化<a href="#1-主机行为modbus-rtu-的实例化" class="hash-link" aria-label="1. 主机行为：Modbus RTU 的实例化的直接链接" title="1. 主机行为：Modbus RTU 的实例化的直接链接" translate="no">​</a></h3>
+<p><strong>明确意图 → 编码 → 发送</strong></p>
+<p>以“读从机 1 的保持寄存器 0x0010，读 1 个”为例：</p>
+<ul>
+<li class="">意图：从机=1，功能码=读保持寄存器(0x03)，起始地址=0x0010，数量=1。</li>
+<li class="">编码规则（RTU 特色）：<!-- -->
+<ul>
+<li class="">地址 1 字节，功能码 1 字节。</li>
+<li class="">起始地址和数量各 2 字节，<strong>大端序</strong>（高字节在前）。</li>
+<li class="">CRC16 校验，计算范围（地址+功能码+数据），结果 <strong>低字节在前</strong> 追加。</li>
+</ul>
+</li>
+<li class="">发送：<!-- -->
+<ul>
+<li class="">必须等待总线空闲 ≥ T3.5（帧间隔），然后连续发出所有字节，字节间空闲 &lt; T1.5。</li>
+</ul>
+</li>
+<li class="">等待应答：<!-- -->
+<ul>
+<li class="">启动应用层超时定时器（如 200ms），超时未收到数据则事务失败。</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-从机处理管道modbus-rtu-的实例化">2. 从机处理管道：Modbus RTU 的实例化<a href="#2-从机处理管道modbus-rtu-的实例化" class="hash-link" aria-label="2. 从机处理管道：Modbus RTU 的实例化的直接链接" title="2. 从机处理管道：Modbus RTU 的实例化的直接链接" translate="no">​</a></h3>
+<p><strong>① 帧同步（识别帧头）</strong>
+RTU 报文没有帧头字符，完全靠时间：</p>
+<ul>
+<li class="">从机监测到总线空闲时间 ≥ T3.5 后，收到的第一个字节即为新帧的地址域。</li>
+</ul>
+<p><strong>② 帧接收与定界（T1.5 与 T3.5 协同）</strong></p>
+<ul>
+<li class="">收到第一个字节后，启动 T1.5 字节间隔定时器。</li>
+<li class="">每收一个新字节，重装 T1.5 定时器。</li>
+<li class="">若 T1.5 超时（两个字节间隔过长）→ 帧不完整，丢弃。</li>
+<li class="">同时用 T3.5 帧间隔判断帧尾：收到一个字节后，若总线空闲时间 ≥ T3.5，则认为当前帧完全接收。</li>
+</ul>
+<p><strong>③ 完整性校验（CRC）</strong></p>
+<ul>
+<li class="">对接收到的地址、功能码、数据域计算 CRC，与帧末两字节比对。</li>
+<li class="">不匹配 → 丢弃，不响应。</li>
+</ul>
+<p><strong>④ 寻址过滤</strong></p>
+<ul>
+<li class="">检查地址是否等于本机地址或为 0（广播）。<br>
+<!-- -->广播只执行写操作，不返回应答。不匹配则丢弃。</li>
+</ul>
+<p><strong>⑤ 命令解析与合法性检查</strong></p>
+<ul>
+<li class="">功能码 0x03 合法，数据域长度应为 4 字节（地址2 + 数量2）。</li>
+<li class="">检查起始地址和数量是否在有效范围，否则转异常处理。</li>
+</ul>
+<p><strong>⑥ 执行操作</strong></p>
+<ul>
+<li class="">从内部保持寄存器区读出 0x0010 的值，假设为 0x01F4。</li>
+</ul>
+<p><strong>⑦ 构造应答</strong></p>
+<ul>
+<li class="">正常应答帧结构：<!-- -->
+<ul>
+<li class="">地址、功能码、字节计数（寄存器数量×2）、寄存器值序列（每个值大端）。</li>
+<li class="">重新计算 CRC 追加。</li>
+</ul>
+</li>
+<li class="">示例：<code>01 03 02 01 F4 xx xx</code></li>
+</ul>
+<p><strong>⑧ 发送应答</strong></p>
+<ul>
+<li class="">等待总线空闲 ≥ T3.5 后，连续发送应答帧。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="三modbus-rtu-的特色细节补充">三、Modbus RTU 的特色细节补充<a href="#三modbus-rtu-的特色细节补充" class="hash-link" aria-label="三、Modbus RTU 的特色细节补充的直接链接" title="三、Modbus RTU 的特色细节补充的直接链接" translate="no">​</a></h2>
+<p>以上框架展示了 Modbus RTU 如何运行，下面总结其<strong>独有的协议要素</strong>，也是实现时必须掌握的知识点。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-数据模型四种对象">1. 数据模型（四种对象）<a href="#1-数据模型四种对象" class="hash-link" aria-label="1. 数据模型（四种对象）的直接链接" title="1. 数据模型（四种对象）的直接链接" translate="no">​</a></h3>
+<p>从机内部数据被抽象为四种类型，各有不同的访问属性：</p>
+<ul>
+<li class=""><strong>线圈（Coils）</strong>：可读写的位（0x01 读，0x05 写单，0x0F 写多）</li>
+<li class=""><strong>离散输入（Discrete Inputs）</strong>：只读位（0x02 读）</li>
+<li class=""><strong>保持寄存器（Holding Registers）</strong>：可读写的 16 位字（0x03 读，0x06 写单，0x10 写多）</li>
+<li class=""><strong>输入寄存器（Input Registers）</strong>：只读 16 位字（0x04 读）</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-常用功能码">2. 常用功能码<a href="#2-常用功能码" class="hash-link" aria-label="2. 常用功能码的直接链接" title="2. 常用功能码的直接链接" translate="no">​</a></h3>
+<table><thead><tr><th>功能码</th><th>名称</th><th>操作对象</th></tr></thead><tbody><tr><td>0x01</td><td>读线圈</td><td>位</td></tr><tr><td>0x02</td><td>读离散输入</td><td>位</td></tr><tr><td>0x03</td><td>读保持寄存器</td><td>16位字</td></tr><tr><td>0x04</td><td>读输入寄存器</td><td>16位字</td></tr><tr><td>0x05</td><td>写单线圈</td><td>位</td></tr><tr><td>0x06</td><td>写单寄存器</td><td>16位字</td></tr><tr><td>0x0F</td><td>写多线圈</td><td>位</td></tr><tr><td>0x10</td><td>写多寄存器</td><td>16位字</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-rtu-帧格式与字节序">3. RTU 帧格式与字节序<a href="#3-rtu-帧格式与字节序" class="hash-link" aria-label="3. RTU 帧格式与字节序的直接链接" title="3. RTU 帧格式与字节序的直接链接" translate="no">​</a></h3>
+<p>通用帧：<strong>地址（1B）+ 功能码（1B）+ 数据（N 字节）+ CRC（2B）</strong></p>
+<ul>
+<li class=""><strong>多字节整数字节序</strong>：一律大端（高字节在前）。寄存器地址、数量、数据值均如此。</li>
+<li class=""><strong>CRC 的字节序</strong>：<strong>小端</strong>。16 位 CRC 先发低字节，再发高字节。</li>
+<li class="">数据域具体结构因功能码而异：<!-- -->
+<ul>
+<li class="">请求：通常包含起始地址（2B）和数量（2B）或写入值。</li>
+<li class="">响应：读操作返回“字节计数（1B）+ 数据”，写操作回显请求。</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-时间间隔机制rtu-独有">4. 时间间隔机制（RTU 独有）<a href="#4-时间间隔机制rtu-独有" class="hash-link" aria-label="4. 时间间隔机制（RTU 独有）的直接链接" title="4. 时间间隔机制（RTU 独有）的直接链接" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>T1.5</strong>：帧内字节间隔上限。超过此时间，从机认为帧残缺。<br>
+<!-- -->计算：<code>T1.5 = 1.5 × 11 / 波特率</code> （当波特率 ≤ 19200）；<br>
+<!-- -->当波特率 &gt; 19200 时，固定为 750 µs。</li>
+<li class=""><strong>T3.5</strong>：帧间间隔下限。新帧前、帧结束后总线必须空闲至少 T3.5。<br>
+<!-- -->计算：<code>T3.5 = 3.5 × 11 / 波特率</code>；高波特率时固定为 1750 µs。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-异常处理机制">5. 异常处理机制<a href="#5-异常处理机制" class="hash-link" aria-label="5. 异常处理机制的直接链接" title="5. 异常处理机制的直接链接" translate="no">​</a></h3>
+<p>当从机无法正常执行请求时，返回异常帧，格式为：<br>
+<code>地址 + 功能码（原功能码 | 0x80） + 异常码 + CRC</code></p>
+<p>常见异常码：</p>
+<ul>
+<li class="">0x01：非法功能</li>
+<li class="">0x02：非法数据地址</li>
+<li class="">0x03：非法数据值</li>
+<li class="">0x04：从机设备故障</li>
+</ul>
+<p>主机收到异常帧后，根据异常码做相应处理（重试、报警、忽略等）。</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/libmodbus/一般主从设备学习方法.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/libmodbus/src/win32/"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">Instructions to compile on Windows</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#一通用主从通信框架协议无关" class="table-of-contents__link toc-highlight">一、通用主从通信框架（协议无关）</a><ul><li><a href="#1-总体角色与交互时序" class="table-of-contents__link toc-highlight">1. 总体角色与交互时序</a></li><li><a href="#2-主机行为框架" class="table-of-contents__link toc-highlight">2. 主机行为框架</a></li><li><a href="#3-从机行为框架被动接收处理管道" class="table-of-contents__link toc-highlight">3. 从机行为框架（被动接收处理管道）</a></li></ul></li><li><a href="#二将-modbus-rtu-填入上述框架" class="table-of-contents__link toc-highlight">二、将 Modbus RTU 填入上述框架</a><ul><li><a href="#1-主机行为modbus-rtu-的实例化" class="table-of-contents__link toc-highlight">1. 主机行为：Modbus RTU 的实例化</a></li><li><a href="#2-从机处理管道modbus-rtu-的实例化" class="table-of-contents__link toc-highlight">2. 从机处理管道：Modbus RTU 的实例化</a></li></ul></li><li><a href="#三modbus-rtu-的特色细节补充" class="table-of-contents__link toc-highlight">三、Modbus RTU 的特色细节补充</a><ul><li><a href="#1-数据模型四种对象" class="table-of-contents__link toc-highlight">1. 数据模型（四种对象）</a></li><li><a href="#2-常用功能码" class="table-of-contents__link toc-highlight">2. 常用功能码</a></li><li><a href="#3-rtu-帧格式与字节序" class="table-of-contents__link toc-highlight">3. RTU 帧格式与字节序</a></li><li><a href="#4-时间间隔机制rtu-独有" class="table-of-contents__link toc-highlight">4. 时间间隔机制（RTU 独有）</a></li><li><a href="#5-异常处理机制" class="table-of-contents__link toc-highlight">5. 异常处理机制</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Hymon. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
